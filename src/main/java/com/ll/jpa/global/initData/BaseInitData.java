@@ -32,7 +32,7 @@ public class BaseInitData {
         return args -> {
             Post post = postService.findById(1).get();
 
-            System.out.println(post);
+            postService.modify(post, "title1-1", "content1-1");
         };
     }
 }
