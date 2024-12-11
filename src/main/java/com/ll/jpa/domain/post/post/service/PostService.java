@@ -14,12 +14,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     public void write(String title, String content) {
-        Post post = new Post();
-        post.setCreatedAt(LocalDateTime.now());
-        post.setModifiedAt(LocalDateTime.now());
-        post.setTitle(title);
-        post.setContent(content);
-        post.setBlind(false);
+        Post post = new Post(null, LocalDateTime.now(), LocalDateTime.now(), title, content,false);
 
         postRepository.save(post);
     }
