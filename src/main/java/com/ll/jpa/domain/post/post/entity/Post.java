@@ -1,15 +1,15 @@
 package com.ll.jpa.domain.post.post.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Post {
     //long => null 안됨
     //Long => null 가능
