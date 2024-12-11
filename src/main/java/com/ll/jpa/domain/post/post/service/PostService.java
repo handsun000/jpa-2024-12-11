@@ -23,4 +23,8 @@ public class PostService {
 
         postRepository.save(post);
     }
+
+    public long count() {
+        return postRepository.count();
+    }
 }
