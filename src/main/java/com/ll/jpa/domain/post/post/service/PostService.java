@@ -4,6 +4,7 @@ import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -17,8 +18,8 @@ public class PostService {
     public void write(String title, String content) {
         Post post = Post
                 .builder()
-                .title("title")
-                .content("content")
+                .title(title)
+                .content(content)
                 .modifiedAt(LocalDateTime.now())
                 .createdAt(LocalDateTime.now())
                 .blind(false)
@@ -39,6 +40,6 @@ public class PostService {
         post.setTitle(title);
         post.setContent(content);
 
-        postRepository.save(post);
+//        postRepository.save(post);
     }
 }

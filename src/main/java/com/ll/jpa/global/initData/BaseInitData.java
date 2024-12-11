@@ -3,10 +3,12 @@ package com.ll.jpa.global.initData;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -29,10 +31,15 @@ public class BaseInitData {
     @Bean
     @Order(2)
     public ApplicationRunner baseInitDataApplicationRunner2() {
-        return args -> {
-            Post post = postService.findById(1).get();
 
-            postService.modify(post, "title1-1", "content1-1");
+        return new ApplicationRunner() {
+            @Override
+            @Transactional
+            public void run(ApplicationArguments args) throws Exception {
+                Post post = postService.findById(1).get();
+
+                postService.modify(post, "title1-1", "content1-1");
+            }
         };
     }
 }
