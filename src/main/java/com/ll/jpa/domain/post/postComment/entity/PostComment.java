@@ -1,5 +1,6 @@
 package com.ll.jpa.domain.post.postComment.entity;
 
+import com.ll.jpa.domain.post.post.entity.Post;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -28,7 +30,8 @@ public class PostComment {
     @Setter(AccessLevel.PRIVATE)
     private LocalDateTime modifiedAt;
 
-    private long postId;
+    @ManyToOne
+    private Post post;
 
     @Column(columnDefinition = "TEXT")
     private String content;

@@ -12,9 +12,9 @@ public class PostCommentService {
 
     private final PostCommentRepository postCommentRepository;
 
-    public PostComment write(long postId, String content) {
+    public PostComment write(Post post, String content) {
         PostComment postComment = PostComment.builder()
-                .postId(postId)
+                .post(post)
                 .content(content)
                 .build();
 

@@ -25,9 +25,11 @@ public class BaseInitData {
             Post post2 = postService.write("title2", "content2");
             Post post3 = postService.write("title3", "content3");
 
-            PostComment comment1 = postCommentService.write(post1.getId(), "comment1");
-            PostComment comment2 = postCommentService.write(post2.getId(), "comment2");
-            PostComment comment3 = postCommentService.write(post3.getId(), "comment3");
+            PostComment comment1 = postCommentService.write(post1, "comment1");
+            PostComment comment2 = postCommentService.write(post2, "comment2");
+            PostComment comment3 = postCommentService.write(post3, "comment3");
+
+            Post post = comment1.getPost();
         };
     }
 }
