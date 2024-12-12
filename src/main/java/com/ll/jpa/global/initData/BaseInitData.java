@@ -4,11 +4,14 @@ import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
 import com.ll.jpa.domain.post.postComment.entity.PostComment;
 import com.ll.jpa.domain.post.postComment.service.PostCommentService;
+import jdk.swing.interop.SwingInterOpUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -37,10 +40,28 @@ public class BaseInitData {
     @Bean
     @Order(2)
     public ApplicationRunner baseInitData2ApplicationRunner() {
-        return args -> {
-            PostComment comment = postCommentService.findById(3).get();
+        return new ApplicationRunner() {
+            @Transactional
+            @Override
+            public void run(ApplicationArguments args) throws Exception {
+                PostComment comment = postCommentService.findById(3).get();
 
-            Post post = comment.getPost();
+                Post post = comment.getPost();
+                System.out.println(post.getId());
+                System.out.println(post.getContent());
+                System.out.println(post.getTitle());
+            }
         };
     }
+
+//    @Bean
+//    @Order(2)
+//    public ApplicationRunner baseInitData2ApplicationRunner() {
+//        return args -> {
+//            PostComment comment = postCommentService.findById(3).get();
+//
+//            Post post = comment.getPost();
+//            System.out.println(post.getId());
+//        };
+//    }
 }
