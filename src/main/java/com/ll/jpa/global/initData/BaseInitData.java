@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 
 @Configuration
 @RequiredArgsConstructor
@@ -30,6 +31,16 @@ public class BaseInitData {
             PostComment comment3 = postCommentService.write(post3, "comment3");
 
             Post post = comment1.getPost();
+        };
+    }
+
+    @Bean
+    @Order(2)
+    public ApplicationRunner baseInitData2ApplicationRunner() {
+        return args -> {
+            PostComment comment = postCommentService.findById(3).get();
+
+            Post post = comment.getPost();
         };
     }
 }
