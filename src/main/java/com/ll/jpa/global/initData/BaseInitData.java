@@ -32,14 +32,9 @@ public class BaseInitData {
     @Order(2)
     public ApplicationRunner baseInitDataApplicationRunner2() {
 
-        return new ApplicationRunner() {
-            @Override
-            @Transactional
-            public void run(ApplicationArguments args) throws Exception {
-                Post post = postService.findById(1).get();
-
-                postService.modify(post, "title1-1", "content1-1");
-            }
+        return args -> {
+            Post post = postService.write("title4", "content1");
+            postService.delete(post);
         };
     }
 }

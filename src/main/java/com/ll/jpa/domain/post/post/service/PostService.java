@@ -15,7 +15,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public void write(String title, String content) {
+    public Post write(String title, String content) {
         Post post = Post
                 .builder()
                 .title(title)
@@ -26,6 +26,7 @@ public class PostService {
                 .build();
 
         postRepository.save(post);
+        return post;
     }
 
     public long count() {
@@ -41,5 +42,9 @@ public class PostService {
         post.setContent(content);
 
 //        postRepository.save(post);
+    }
+
+    public void delete(Post post) {
+        postRepository.delete(post);
     }
 }
