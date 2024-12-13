@@ -16,6 +16,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -65,10 +66,8 @@ public class BaseInitData {
     public void work2() {
         Post post = postService.findById(1).get();
 
-        List<PostComment> list =  post.getComments();
-
-        for (PostComment comment : list) System.out.println(comment.getContent());
-
-        postService.delete(post);
+        post.getComments().removeIf(
+                postComment -> postComment.getId() == 1
+        );
     }
 }
