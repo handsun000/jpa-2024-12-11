@@ -46,6 +46,7 @@ public class Post {
     @Builder.Default
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostComment> comments = new ArrayList<>();
+
     public void addComment(String content) {
         PostComment postComment = PostComment.builder()
                 .content(content)

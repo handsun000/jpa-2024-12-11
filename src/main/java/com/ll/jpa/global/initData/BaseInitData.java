@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
@@ -48,8 +50,11 @@ public class BaseInitData {
         Post post3 = postService.write("title3", "content3");
 
         post1.addComment("comment1");
+        post1.addComment("comment2");
+        post2.addComment("comment1");
         post2.addComment("comment2");
-        post3.addComment("comment3");
+        post3.addComment("comment1");
+        post3.addComment("comment2");
 
 //        PostComment postComment1 = postCommentService.write(post1, "comment1");
 //        PostComment postComment2 = postCommentService.write(post1, "comment2");
@@ -58,22 +63,10 @@ public class BaseInitData {
 
     @Transactional
     public void work2() {
-        PostComment postComment3 = postCommentService.findById(3).get();
-        /*
-        SELECT PC.*
-        FROM post_comment AS PC
-        WHERE PC.id = 3
-        */
+        Post post = postService.findById(1).get();
 
-        Post postOfComment3 = postComment3.getPost();
-        System.out.println("postOfComment3.id = " + postOfComment3.getId());
-        System.out.println("postOfComment3.title = " + postOfComment3.getTitle());
-        /*
-        SELECT P.*
-        FROM post AS P
-        WHERE P.id = 2
-        */
+        List<PostComment> list =  post.getComments();
 
-        System.out.println("postOfComment3.content = " + postOfComment3.getContent());
+        for (PostComment comment : list) System.out.println(comment.getContent());
     }
 }
