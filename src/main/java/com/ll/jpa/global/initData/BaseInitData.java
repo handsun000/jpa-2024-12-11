@@ -68,5 +68,7 @@ public class BaseInitData {
         List<PostComment> list =  post.getComments();
 
         for (PostComment comment : list) System.out.println(comment.getContent());
+
+        postService.delete(post);
     }
 }
