@@ -1,6 +1,8 @@
 server:
   port: 8080
 spring:
+  profiles:
+    active: test
   output:
     ansi:
       enabled: always
@@ -11,16 +13,15 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl=auto: update
-    show-sql: true
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
         highlight_sql: true
         use_sql_comments: true
-  logging:
-    level:
-      org.hibernate.SQL: DEBUG
-      org.hibernate.orm.jdbc.bind: TRACE
-      org.hibernate.orm.jdbc.extract: TRACE
-      org.springframework.transaction.interceptor: TRACE
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.orm.jdbc.extract: TRACE
+    org.springframework.transaction.interceptor: TRACE
