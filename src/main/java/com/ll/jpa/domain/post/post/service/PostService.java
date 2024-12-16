@@ -67,6 +67,9 @@ public class PostService {
     public List<Post> findByTitleLike(String title) {
         return postRepository.findByTitleLike(title);
     }
+    public Page<Post> findByTitleLike(String title, Pageable pageable) {
+        return postRepository.findByTitleLike(title, pageable);
+    }
 
     public List<Post> findByTitleLikeOrderByIdDesc(String title) {
         return postRepository.findByTitleLikeOrderByIdDesc(title);
@@ -86,6 +89,10 @@ public class PostService {
 
     public Page<Post> findAll(Pageable pageable) {
         return postRepository.findAll(pageable);
+    }
+
+    public List<Post> findByAuthorNickname(String authorNickname) {
+        return postRepository.findByAuthorNickname(authorNickname);
     }
 
     public List<Post> findByCommentsAuthorNickname(String authorNickName) {
