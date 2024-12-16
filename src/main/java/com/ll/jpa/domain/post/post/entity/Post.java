@@ -1,5 +1,6 @@
 package com.ll.jpa.domain.post.post.entity;
 
+import com.ll.jpa.domain.member.member.entity.Member;
 import com.ll.jpa.domain.post.postComment.entity.PostComment;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,6 +41,9 @@ public class Post {
     @Column(length = 100)
     private String title;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member author;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 
@@ -49,10 +53,11 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true) // default LAZY
     private List<PostComment> comments = new ArrayList<>();
 
-    public void addComment(String content) {
+    public void addComment(Member author, String content) {
         PostComment postComment = PostComment.builder()
                 .content(content)
                 .post(this)
+                .author(author)
                 .build();
 
         comments.add(postComment);

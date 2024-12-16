@@ -1,5 +1,6 @@
 package com.ll.jpa.global.initData;
 
+import com.ll.jpa.domain.member.member.entity.Member;
 import com.ll.jpa.domain.member.member.service.MemberService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
@@ -23,26 +24,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BaseInitData {
 
-    private final PostService postService;
-    private final PostCommentService postCommentService;
     private final MemberService memberService;
+    private final PostService postService;
 
     @Autowired
     @Lazy
     private BaseInitData self;
 
     @Bean
-    @Order(1)
     public ApplicationRunner baseInitDataApplicationRunner() {
         return args -> {
             self.work1();
+            self.work2();
         };
-    }
-
-    @Bean
-    @Order(2)
-    public ApplicationRunner baseInitData2ApplicationRunner() {
-        return args -> self.work2();
     }
 
     @Transactional
@@ -60,19 +54,26 @@ public class BaseInitData {
     public void work2() {
         if (postService.count() > 0) return;
 
-        Post post1 = postService.write("title1", "content1");
-        Post post2 = postService.write("title2", "content2");
-        Post post3 = postService.write("title3", "content3");
+        Member memberUser1 = memberService.findByUsername("user1").get();
+        Member memberUser2 = memberService.findByUsername("user2").get();
+        Member memberUser3 = memberService.findByUsername("user3").get();
+
+        Post post1 = postService.write(memberUser1, "title1", "content1");
+        Post post2 = postService.write(memberUser1, "title2", "content2");
+        Post post3 = postService.write(memberUser2, "title3", "content3");
 
         post1.addComment(
+                memberUser3,
                 "comment1"
         );
 
         post1.addComment(
+                memberUser3,
                 "comment2"
         );
 
         post2.addComment(
+                memberUser1,
                 "comment3"
         );
     }
