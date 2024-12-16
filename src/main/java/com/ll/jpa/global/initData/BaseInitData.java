@@ -1,5 +1,6 @@
 package com.ll.jpa.global.initData;
 
+import com.ll.jpa.domain.member.member.service.MemberService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
 import com.ll.jpa.domain.post.postComment.entity.PostComment;
@@ -24,6 +25,8 @@ public class BaseInitData {
 
     private final PostService postService;
     private final PostCommentService postCommentService;
+    private final MemberService memberService;
+
     @Autowired
     @Lazy
     private BaseInitData self;
@@ -44,30 +47,33 @@ public class BaseInitData {
 
     @Transactional
     public void work1() {
+        if (memberService.count() > 0) return;
+
+        memberService.join("system", "1234", "시스템");
+        memberService.join("admin", "1234", "관리자");
+        memberService.join("user1", "1234", "우저1");
+        memberService.join("user2", "1234", "우저2");
+        memberService.join("user3", "1234", "우저3");
+    }
+
+    @Transactional
+    public void work2() {
         if (postService.count() > 0) return;
 
         Post post1 = postService.write("title1", "content1");
         Post post2 = postService.write("title2", "content2");
         Post post3 = postService.write("title3", "content3");
 
-        post1.addComment("comment1");
-        post1.addComment("comment2");
-        post2.addComment("comment1");
-        post2.addComment("comment2");
-        post3.addComment("comment1");
-        post3.addComment("comment2");
+        post1.addComment(
+                "comment1"
+        );
 
-//        PostComment postComment1 = postCommentService.write(post1, "comment1");
-//        PostComment postComment2 = postCommentService.write(post1, "comment2");
-//        PostComment postComment3 = postCommentService.write(post2, "comment3");
-    }
+        post1.addComment(
+                "comment2"
+        );
 
-    @Transactional
-    public void work2() {
-        Post post = postService.findById(1).get();
-
-        post.getComments().removeIf(
-                postComment -> postComment.getId() == 1
+        post2.addComment(
+                "comment3"
         );
     }
 }
