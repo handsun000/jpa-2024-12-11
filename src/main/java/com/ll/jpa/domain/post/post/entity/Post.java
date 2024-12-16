@@ -2,6 +2,7 @@ package com.ll.jpa.domain.post.post.entity;
 
 import com.ll.jpa.domain.member.member.entity.Member;
 import com.ll.jpa.domain.post.postComment.entity.PostComment;
+import com.ll.jpa.domain.post.tag.entity.PostTag;
 import com.ll.jpa.global.jpa.entity.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,6 +37,10 @@ public class Post extends BaseTime {
     @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true) // default LAZY
     private List<PostComment> comments = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)// default LAZY
+    private List<PostTag> tags = new ArrayList<>();
+
     public void addComment(Member author, String content) {
         PostComment postComment = PostComment.builder()
                 .content(content)
@@ -46,7 +51,16 @@ public class Post extends BaseTime {
         comments.add(postComment);
     }
 
-    public void removeComment(PostComment postComment) {
-        comments.remove(postComment);
+    public void addTag(String content) {
+        PostTag postTag = PostTag
+                .builder()
+                .post(this)
+                .content(content)
+                .build();
+        tags.add(postTag);
+    }
+
+    public boolean removeComment(PostComment postComment) {
+        return comments.remove(postComment);
     }
 }

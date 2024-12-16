@@ -4,26 +4,17 @@ import com.ll.jpa.domain.member.member.entity.Member;
 import com.ll.jpa.domain.member.member.service.MemberService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
-import com.ll.jpa.domain.post.postComment.entity.PostComment;
-import com.ll.jpa.domain.post.postComment.service.PostCommentService;
-import jdk.swing.interop.SwingInterOpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
 public class BaseInitData {
-
     private final MemberService memberService;
     private final PostService postService;
 
@@ -45,8 +36,8 @@ public class BaseInitData {
 
         memberService.join("system", "1234", "시스템");
         memberService.join("admin", "1234", "관리자");
-        memberService.join("user1", "1234", "우저1");
-        memberService.join("user2", "1234", "우저2");
+        memberService.join("user1", "1234", "유저1");
+        memberService.join("user2", "1234", "유저2");
         memberService.join("user3", "1234", "유저3");
     }
 
@@ -76,5 +67,13 @@ public class BaseInitData {
                 memberUser1,
                 "comment3"
         );
+
+        post1.addTag("IT");
+        post1.addTag("Spring");
+        post1.addTag("JPA");
+
+        post2.addTag("소설");
+        post2.addTag("문학");
+        post2.addTag("소설가");
     }
 }

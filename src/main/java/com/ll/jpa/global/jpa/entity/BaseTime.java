@@ -18,15 +18,9 @@ import java.time.LocalDateTime;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public class BaseTime {
-    @Id
-    @GeneratedValue(strategy = IDENTITY) // AUTO_INCREMENT
-    @Setter(AccessLevel.PRIVATE)
-    @EqualsAndHashCode.Include
-    private Long id;
+public class BaseTime extends BaseEntity{
 
     @CreatedDate
     @Setter(AccessLevel.PRIVATE)
