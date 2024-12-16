@@ -25,8 +25,6 @@ public class PostService {
                 .builder()
                 .title(title)
                 .content(content)
-                .modifiedAt(LocalDateTime.now())
-                .createdAt(LocalDateTime.now())
                 .blind(false)
                 .author(author)
                 .build();

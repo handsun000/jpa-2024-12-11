@@ -2,6 +2,7 @@ package com.ll.jpa.domain.post.post.entity;
 
 import com.ll.jpa.domain.member.member.entity.Member;
 import com.ll.jpa.domain.post.postComment.entity.PostComment;
+import com.ll.jpa.global.jpa.entity.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,25 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@EntityListeners(AuditingEntityListener.class)
-public class Post {
-    //long => null 안됨
-    //Long => null 가능
-    //Jpa 엔티티 클래스 특성상 id 필드는 null 이 가능하도록
-    @Id // PRIMARY KEY
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    @Setter(AccessLevel.PRIVATE)
-    private Long id;
-
-    @CreatedDate
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime modifiedAt;
+public class Post extends BaseTime {
 
     @Column(length = 100)
     private String title;

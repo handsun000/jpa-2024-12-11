@@ -1,5 +1,6 @@
 package com.ll.jpa.domain.member.member.entity;
 
+import com.ll.jpa.global.jpa.entity.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,21 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@EntityListeners(AuditingEntityListener.class)
-public class Member {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.PRIVATE)
-    private Long id;
-
-    @CreatedDate
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime modifiedDate;
+public class Member extends BaseTime {
 
     @Column(unique = true, length = 30)
     private String username;
