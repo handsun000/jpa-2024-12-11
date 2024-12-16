@@ -36,5 +36,5 @@ public class Member {
     @Column(length = 100)
     private String password;
 
-    private String nickName;
+    private String nickname;
 }

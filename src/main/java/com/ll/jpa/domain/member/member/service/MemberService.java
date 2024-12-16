@@ -17,7 +17,7 @@ public class MemberService {
         Member member = Member.builder()
                 .username(userName)
                 .password(password)
-                .nickName(nickName)
+                .nickname(nickName)
                 .build();
 
         return memberRepository.save(member);

@@ -1,5 +1,7 @@
 package com.ll.jpa.com.ll.jpa.com.ll.domain.post.post.service;
 
+import com.ll.jpa.domain.member.member.entity.Member;
+import com.ll.jpa.domain.member.member.service.MemberService;
 import com.ll.jpa.domain.post.post.entity.Post;
 import com.ll.jpa.domain.post.post.service.PostService;
 import org.assertj.core.api.Assertions;
@@ -26,13 +28,17 @@ public class PostServiceTest {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private MemberService memberService;
+
     @Test
     @DisplayName("글 2개 생성")
     @Transactional
     @Rollback
     void t1() {
-        postService.write("제목1", "내용1");
-        postService.write("제목2", "내용2");
+        Member user1 = memberService.findByUsername("user1").get();
+        postService.write(user1, "title1", "content1");
+        postService.write(user1, "title2", "content2");
     }
 
     @Test
@@ -111,6 +117,13 @@ public class PostServiceTest {
         Pageable pageable = PageRequest.of(pageNumber, itemsPerPage, Sort.by(Sort.Direction.DESC, "id"));
         Page<Post> postpage = postService.findAll(pageable);
         List<Post> posts = postpage.getContent();
+        assertEquals(1, posts.size());
+    }
+
+    @Test
+    @DisplayName("findByCommentsAuthorNickname")
+    void t15() {
+        List<Post> posts = postService.findByCommentsAuthorNickname("유저3");
         assertEquals(1, posts.size());
     }
 

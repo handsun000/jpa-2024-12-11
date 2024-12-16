@@ -47,7 +47,7 @@ public class BaseInitData {
         memberService.join("admin", "1234", "관리자");
         memberService.join("user1", "1234", "우저1");
         memberService.join("user2", "1234", "우저2");
-        memberService.join("user3", "1234", "우저3");
+        memberService.join("user3", "1234", "유저3");
     }
 
     @Transactional

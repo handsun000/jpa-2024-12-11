@@ -89,4 +89,8 @@ public class PostService {
     public Page<Post> findAll(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
+
+    public List<Post> findByCommentsAuthorNickname(String authorNickName) {
+        return postRepository.findByCommentsAuthorNickname(authorNickName);
+    }
 }
