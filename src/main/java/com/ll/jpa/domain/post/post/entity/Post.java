@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @EntityListeners(AuditingEntityListener.class)
 public class Post {
     //long => null 안됨
@@ -24,6 +25,7 @@ public class Post {
     //Jpa 엔티티 클래스 특성상 id 필드는 null 이 가능하도록
     @Id // PRIMARY KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     @Setter(AccessLevel.PRIVATE)
     private Long id;
 
