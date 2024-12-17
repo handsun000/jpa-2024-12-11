@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Setter
@@ -42,6 +43,7 @@ public class Post extends BaseTime {
     private List<PostTag> tags = new ArrayList<>();
 
     public void addComment(Member author, String content) {
+
         PostComment postComment = PostComment.builder()
                 .content(content)
                 .post(this)
@@ -52,11 +54,20 @@ public class Post extends BaseTime {
     }
 
     public void addTag(String content) {
+
+        Optional<PostTag> opOldTag = tags
+                .stream()
+                .filter(tag -> tag.getContent().equals(content))
+                .findFirst();
+
+        if (opOldTag.isPresent()) return;
+
         PostTag postTag = PostTag
                 .builder()
                 .post(this)
                 .content(content)
                 .build();
+
         tags.add(postTag);
     }
 
