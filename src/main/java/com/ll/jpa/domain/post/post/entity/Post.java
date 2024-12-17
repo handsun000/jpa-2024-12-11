@@ -11,9 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Entity
 @Setter
@@ -40,7 +38,7 @@ public class Post extends BaseTime {
 
     @Builder.Default
     @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)// default LAZY
-    private List<PostTag> tags = new ArrayList<>();
+    private Set<PostTag> tags = new HashSet<>();
 
     public void addComment(Member author, String content) {
 
@@ -54,13 +52,6 @@ public class Post extends BaseTime {
     }
 
     public void addTag(String content) {
-
-        Optional<PostTag> opOldTag = tags
-                .stream()
-                .filter(tag -> tag.getContent().equals(content))
-                .findFirst();
-
-        if (opOldTag.isPresent()) return;
 
         PostTag postTag = PostTag
                 .builder()

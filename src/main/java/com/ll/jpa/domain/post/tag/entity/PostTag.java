@@ -15,11 +15,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PostTag extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
     @Column(length = 30)
+    @EqualsAndHashCode.Include
     private String content;
 }
